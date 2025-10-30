@@ -2,7 +2,7 @@ from flask import Flask, redirect, request, jsonify
 import os
 import requests
 from dotenv import load_dotenv
-from mychart_api import get_patient_data  # you'll define later
+# import functions here
 
 load_dotenv()
 
