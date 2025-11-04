@@ -1,18 +1,10 @@
-import { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ChatbotScreen from '../screens/ChatbotScreen';
 import HomeScreen from '../screens/HomeScreen';
-import LockScreen from '../screens/LockScreen';
 
 const Tab = createBottomTabNavigator();
 
 export default function AppTabs() {
-  const [isAuthed, setIsAuthed] = useState(false);
-
-  if (!isAuthed) {
-    return <LockScreen onSuccess={() => setIsAuthed(true)} />;
-  }
-
   return (
     <Tab.Navigator
       screenOptions={{

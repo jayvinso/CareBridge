@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { FlatList, StyleSheet, Text, TouchableOpacity, View, Modal } from 'react-native';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const placeholderGaps = [
   {
@@ -7,24 +6,10 @@ const placeholderGaps = [
     title: 'Annual preventive Exam',
     subtitle: 'Yearly Checkup',
   },
-   {
-    id: '2',
-    title: 'Influenza Vaccine',
-    subtitle: 'Annual flu shot',
-  },
   // Add more items as needed later
 ];
 
 export default function HomeScreen() {
-  const [showCost, setShowCost] = useState(false);
-  const [selectedGap, setSelectedGap] = useState(null);
-
-  const openCost = (item) => {
-    setSelectedGap(item);
-    setShowCost(true);
-  };
-  const closeCost = () => setShowCost(false);
-
   const renderGapItem = ({ item }) => (
     <View style={styles.gapItem}>
       <Text style={styles.gapTitle}>{item.title}</Text>
@@ -36,7 +21,7 @@ export default function HomeScreen() {
         <TouchableOpacity style={styles.redButton}>
           <Text style={styles.buttonText}>Schedule</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.redButton} onPress={() => openCost(item)}>
+        <TouchableOpacity style={styles.redButton}>
           <Text style={styles.buttonText}>Estimate Cost</Text>
         </TouchableOpacity>
       </View>
@@ -54,7 +39,7 @@ export default function HomeScreen() {
       <Text style={styles.welcomeText}>Welcome Back, User!</Text>
 
       {/* Pending gaps count */}
-      <Text style={styles.pendingText}>You have 2 pending gaps to address</Text>
+      <Text style={styles.pendingText}>You have 8 pending gaps to address</Text>
 
       {/* List of gaps */}
       <FlatList
@@ -70,47 +55,6 @@ export default function HomeScreen() {
         <Text style={styles.askTitle}>Ask a Question Now</Text>
         <Text style={styles.askSubtitle}>Get real-time answers to your questions about recommended care</Text>
       </View>
-
-      {/* Cost Estimate Modal */}
-      <Modal
-        animationType="slide"
-        transparent
-        visible={showCost}
-        onRequestClose={closeCost}
-      >
-        <View style={styles.modalBackdrop}>
-          <View style={styles.modalCard}>
-            <Text style={styles.modalTitle}>{selectedGap?.title || 'Cost Estimate'}</Text>
-            <Text style={styles.modalSubtitle}>{selectedGap?.subtitle || ''}</Text>
-
-            <View style={styles.costRow}>
-              <View>
-                <Text style={styles.costLabel}>Before insurance</Text>
-                <Text style={styles.costValue}>$120.00</Text>
-              </View>
-              <View style={[styles.pill, styles.pillEstimated]}>
-                <Text style={styles.pillText}>Estimated</Text>
-              </View>
-            </View>
-
-            <View style={styles.divider} />
-
-            <View style={styles.costRow}>
-              <View>
-                <Text style={styles.costLabel}>After insurance</Text>
-                <Text style={styles.costValue}>$35.00</Text>
-              </View>
-              <View style={[styles.pill, styles.pillVerified]}>
-                <Text style={styles.pillText}>Verified</Text>
-              </View>
-            </View>
-
-            <TouchableOpacity style={styles.modalClose} onPress={closeCost}>
-              <Text style={styles.modalCloseText}>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
     </View>
   );
 }
@@ -204,47 +148,4 @@ const styles = StyleSheet.create({
     color: '#444',
     textAlign: 'center',
   },
-  modalBackdrop: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.3)',
-    justifyContent: 'flex-end',
-  },
-  modalCard: {
-    backgroundColor: '#fff',
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    padding: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
-    elevation: 10,
-  },
-  modalTitle: { fontSize: 18, fontWeight: '800', color: '#111' },
-  modalSubtitle: { fontSize: 13, color: '#666', marginTop: 4, marginBottom: 16 },
-  costRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginVertical: 6,
-  },
-  costLabel: { fontSize: 14, color: '#444' },
-  costValue: { fontSize: 20, fontWeight: '800', color: '#111', marginTop: 2 },
-  divider: { height: 1, backgroundColor: '#eee', marginVertical: 10 },
-  pill: {
-    paddingVertical: 6,
-    paddingHorizontal: 10,
-    borderRadius: 20,
-  },
-  pillEstimated: { backgroundColor: '#FFF6E5' },
-  pillVerified: { backgroundColor: '#EAF8EE' },
-  pillText: { fontSize: 12, fontWeight: '700', color: '#333' },
-  modalClose: {
-    backgroundColor: '#c41b1bff',
-    marginTop: 18,
-    borderRadius: 10,
-    paddingVertical: 12,
-    alignItems: 'center',
-  },
-  modalCloseText: { color: '#fff', fontWeight: '700', fontSize: 16 },
 });
